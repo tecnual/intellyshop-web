@@ -34,7 +34,7 @@
           </div>
         </mat-form-field>
         <button mat-raised-button color="primary" (click)="register()" [disabled]="!form.valid">{{ 'global.actions.register' | translate }}</button>
-        <a routerLink="../login" class="mat-button">{{ 'global.actions.cancel' | translate }}</a>
+        <button mat-button color="primary" (click)="onCancel()">{{ 'global.actions.cancel' | translate }}</button>
       </form>
     </mat-card-content>
   </mat-card>

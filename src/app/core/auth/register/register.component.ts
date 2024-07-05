@@ -4,6 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AccountService } from '../account.service';
 import { User } from '../user.model';
+import { MatDialog } from '@angular/material/dialog';
+import { RegisteredComponent } from '../registered/registered.component';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +19,8 @@ export class RegisterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private accountService: AccountService,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -36,12 +39,14 @@ export class RegisterComponent implements OnInit {
   public register() {
     const user: User = new User(this.f.username.value, this.f.password.value, this.f.name.value, this.f.email.value);
     this.accountService.register(user).subscribe(res => {
-      this.snackBar.open('¡Usuario registrado correctamente! Por favor, confirme su email', 'Ok', {
-        duration: 2000,
+      const dialogRef = this.dialog.open(RegisteredComponent, {
+        autoFocus: false,
+        data: {user}
       });
-      // this.accountService.login(user.username, user.password).subscribe( s => {
-      //   this.router.navigate(['/list']);
-      // });
+      dialogRef.afterClosed().subscribe(data => {
+        console.log('Cerrar dialogo bienvenida')
+        this.router.navigate(['/']);
+      });
     });
   }
 
@@ -50,5 +55,9 @@ export class RegisterComponent implements OnInit {
     const confirmPass = group.get('rePassword').value;
 
     return pass === confirmPass ? null : { notSame: true }
+  }
+
+  onCancel() {
+    this.router.navigate(['/']);
   }
 }

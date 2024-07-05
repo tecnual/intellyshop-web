@@ -19,7 +19,7 @@
         </mat-error>
       </mat-form-field>
       <button mat-raised-button color="primary" (click)="onSubmit()">Login</button>
-      <a routerLink="../register" class="mat-button">{{ 'account.newAccount' | translate}}</a>
+      <button mat-button color="primary" (click)="onRegister()">{{ 'account.newAccount' | translate }}</button>
     </form>
   </mat-card-content>
 </mat-card>

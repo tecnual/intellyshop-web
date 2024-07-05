@@ -1,0 +1,37 @@
+<div class="dialog">
+  <header class="dialog-header">
+    <h2 class="dialog-header__title">¡¡Bienvenid&#64;!!</h2>
+    <button
+      mat-icon-button
+      aria-label="close dialog"
+      mat-dialog-close
+      onclick="this.blur()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </header>
+  <div class="dialog-content">
+      <p>Muchas gracias por registrarte en <strong>IntellyShop</strong>.  Nos alegra mucho que te unas a nuestra comunidad de compradores inteligentes.
+       Por favor, revisa tu correo electrónico ({{ data.user.email }}), te hemos enviado las instrucciones para que puedas confirmar tu email y activar tu cuenta.
+       </p>
+       <p>
+       Estamos comprometidos en ofrecerte las mejores herramientas para que tus compras sean rápidas, eficientes y satisfactorias.</p>
+      <p>En IntellyShop, te ofrecemos:</p>
+      <ul>
+        <li><strong>Listas de la compra</strong></li>
+        <li><strong>Comparaciones de precios</strong> precisas y actualizadas.</li>
+        <li><strong>Ofertas exclusivas</strong> y promociones especiales.</li>
+      </ul>
+      <p>Para aprovechar al máximo tu experiencia en IntellyShop, te recomendamos:</p>
+      <ol>
+          <li><strong>Completar tu perfil:</strong></li>
+          <li><strong>Explorar nuestras categorías:</strong> para encontrar los productos que buscas.</li>
+          <li><strong>Crear listas con tus tiendas favoritas:</strong> para estar al tanto de sus últimas ofertas y novedades.</li>
+      </ol>
+  </div>
+
+  <div class="dialog-actions">
+    <button mat-button aria-label="close dialog"
+    mat-dialog-close onclick="this.blur()">Cerrar</button>
+  </div>
+</div>
