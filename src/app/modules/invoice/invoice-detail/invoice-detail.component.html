@@ -10,63 +10,69 @@
       <mat-icon>close</mat-icon>
     </button>
   </header>
-  <table class="invoice-table">
-    <tr>
-      <th>U</th>
-      <th>Descripción</th>
-      <th>€/u</th>
-      <th>€</th>
-      <th></th>
-    </tr>
-    @for (line of data.invoice.lines; track $index) {
-    <tr>
-      <td>
-        {{ line.quantity | number : '1.0-2' }}
-        {{ line.unitType === 'u' ? '' : line.unitType }}
-      </td>
-      <td>
-        @if (line.item_id) {
-          <div class="u-color-yellow" (click)="openItemDetail(line)">{{ line.description }}</div>
-        } @else {
-          <div>{{ line.description }}</div>
-        }
-      </td>
-      <td>
-        {{
-          line.price
-            | currency : data.invoice.currency : 'symbol' : '1.2-2' : 'es'
-        }}{{ line.unitType === 'u' ? '' : '/' + line.unitType }}
-      </td>
-      <td>
-        {{
-          line.price * line.quantity
-            | currency : data.invoice.currency : 'symbol' : '1.2-2' : 'es'
-        }}
-      </td>
-      <td>
-        @if (line.barcode) {
-          <div class="invoice-line__actions--center">
-            <mat-icon class="u-size-s u-color-green">check_circle_outline</mat-icon>
+  <div class="dialog-content">
+    <table class="invoice-table">
+      <tr>
+        <th>U</th>
+        <th class="invoice-line__description">Descripción</th>
+        <th>€/u</th>
+        <th>€</th>
+        <th></th>
+      </tr>
+      @for (line of data.invoice.lines; track $index) {
+      <tr>
+        <td>
+          {{ line.quantity | number : '1.0-2' }}
+          {{ line.unitType === 'u' ? '' : line.unitType }}
+        </td>
+        <td class="invoice-line__description">
+          @if (line.item_id) {
+          <div class="u-color-yellow" (click)="openItemDetail(line)">
+            {{ line.description }}
           </div>
-        } @else {
+          } @else {
+          <div>{{ line.description }}</div>
+          }
+        </td>
+        <td>
+          {{
+            line.price
+              | currency : data.invoice.currency : 'symbol' : '1.2-2' : 'es'
+          }}{{ line.unitType === 'u' ? '' : '/' + line.unitType }}
+        </td>
+        <td>
+          {{
+            line.price * line.quantity
+              | currency : data.invoice.currency : 'symbol' : '1.2-2' : 'es'
+          }}
+        </td>
+        <td>
+          @if (line.barcode) {
+          <div class="invoice-line__actions--center">
+            <mat-icon class="u-size-s u-color-green"
+              >check_circle_outline</mat-icon
+            >
+          </div>
+          } @else {
           <button
-          mat-icon-button
-          aria-label="edit dialog"
-          (click)="openScanner(line)"
-        >
-          <mat-icon class="u-size-s">qr_code_scanner</mat-icon>
-        </button>
-        }
-      </td>
-    </tr>
-    } @empty {
-    <tr>
-      <td colspan="4">No hay líneas para este ticket</td>
-    </tr>
-    }
-  </table>
-
+            mat-icon-button
+            aria-label="edit dialog"
+            (click)="openScanner(line)"
+          >
+            <mat-icon class="u-size-s">qr_code_scanner</mat-icon>
+          </button>
+          }
+        </td>
+      </tr>
+      } @empty {
+      <tr>
+        <td colspan="4">No hay líneas para este ticket</td>
+      </tr>
+      }
+    </table>
+  </div>
   <footer class="dialog-footer">
+    <div class="invoice-footer">
     <div>{{ data.invoice.lines.length }} Productos</div>
     <div>
       Total:
@@ -75,5 +81,6 @@
           | currency : data.invoice.currency : 'symbol' : '1.2-2' : 'es'
       }}
     </div>
+  </div>
   </footer>
 </div>
