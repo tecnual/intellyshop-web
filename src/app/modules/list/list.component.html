@@ -23,9 +23,11 @@
         </button>
       </div>
       <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-        <mat-option *ngFor="let item of foundItems" [value]="item.name" (onSelectionChange)="addItemToList(item)">
-          {{item.name}}
-        </mat-option>
+        @for (item of foundItems; track $index) {
+          <mat-option (onSelectionChange)="addItemToList(item)">
+            {{item.name}}
+          </mat-option>
+        }
       </mat-autocomplete>
     </mat-form-field>
   </form>
