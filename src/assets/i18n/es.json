@@ -9,6 +9,7 @@
   "account": {
     "newAccount": "Nueva cuenta",
     "logout": "Salir",
+    "settings": "Configuración",
     "login": {
       "user": "Usuario",
       "password": "Contraseña"
