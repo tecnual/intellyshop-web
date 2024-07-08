@@ -5,7 +5,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { HomeService } from '@app/core/home/home.service';
 import { ItemDTO } from '../item/item.dto';
@@ -20,8 +20,8 @@ import { List } from './list.model';
 import { ImageAttachComponent } from '@app/shared/components/image-attach/image-attach.component';
 import { ListGalleryComponent } from '@app/shared/components/list-gallery/list-gallery.component';
 import { ConfirmDialogComponent } from '@app/shared/components/confirm-dialog/confirm-dialog.component';
-import { forkJoin, Observable, of, lastValueFrom, firstValueFrom } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { forkJoin, Observable, of, firstValueFrom, Subject } from 'rxjs';
+import { catchError, takeUntil } from 'rxjs/operators';
 import { ItemComponent } from '../item/item.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AccountService } from '@app/core/auth/account.service';
@@ -37,7 +37,8 @@ export class ListComponent implements OnInit {
   foundItems = [];
   MIN_SEARCH_LENGTH = 3;
   user;
-
+  private readonly finishCalls = new Subject();
+  
   constructor(
     private formBuilder: FormBuilder,
     public readonly homeService: HomeService,
@@ -108,9 +109,19 @@ export class ListComponent implements OnInit {
   public getFilteredItems(searchFilter: Event) {
     const filterValue = (searchFilter.target as HTMLInputElement).value;
     if (filterValue.length >= this.MIN_SEARCH_LENGTH) {
-      this.itemService.searchItemsByName(filterValue).subscribe((data) => {
-        this.foundItems = data;
-      });
+      this.itemService.searchItemsByName(filterValue).pipe(
+        takeUntil(this.finishCalls)
+      ).subscribe({
+          next: data => {
+            this.foundItems = data;
+          },
+          error: (err) => {
+            console.error('Error: ', err);
+          },
+          complete: () => {
+            this.finishCalls.next(null);
+          }
+      })
     } else {
       this.foundItems = [];
     }
