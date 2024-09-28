@@ -1,4 +1,4 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
@@ -8,6 +8,7 @@ import { AccountService } from '@app/core/account/account.service';
 import { LoginResponse } from '@app/core/account/login/login-response.dto';
 
 import { ListHomeComponent } from './list-home.component';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 class AccountServiceMock {
   public get sessionValue(): any {
@@ -20,18 +21,17 @@ describe('ListHomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        RouterModule.forRoot([]),
-        RouterTestingModule,
-      ],
-      providers: [
+    declarations: [ListHomeComponent],
+    imports: [RouterModule.forRoot([]),
+        RouterTestingModule],
+    providers: [
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialog, useValue: {} },
-        { provide: AccountService, useValue: new AccountServiceMock() }
-      ],
-      declarations: [ ListHomeComponent ]
-    })
+        { provide: AccountService, useValue: new AccountServiceMock() },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+})
     .compileComponents();
   });
 

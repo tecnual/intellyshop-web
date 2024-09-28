@@ -1,4 +1,4 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -7,6 +7,7 @@ import { SharedModule } from '@app/shared/shared.module';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { SidenavComponent } from './sidenav.component';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 class AccountServiceMock {
   public get sessionValue(): any {
@@ -19,23 +20,22 @@ describe('SidenavComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        BrowserAnimationsModule,
+    declarations: [SidenavComponent],
+    imports: [BrowserAnimationsModule,
         RouterTestingModule,
-        HttpClientTestingModule,
         SharedModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateFakeLoader
-          }
-        })
-      ],
-      declarations: [ SidenavComponent ],
-      providers: [
-        {provide: AccountService, useValue: new AccountServiceMock()}
-      ]
-    })
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader
+            }
+        })],
+    providers: [
+        { provide: AccountService, useValue: new AccountServiceMock() },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+})
     .compileComponents();
   });
 
