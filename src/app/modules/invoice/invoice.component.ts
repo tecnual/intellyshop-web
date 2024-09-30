@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ListService } from '../list/list.service';
 import { List } from '../list/list.model';
@@ -7,17 +7,25 @@ import { InvoiceDetailComponent } from './invoice-detail/invoice-detail.componen
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '@app/shared/shared.module';
 import { AddInvoiceComponent } from './add-invoice/add-invoice.component';
+import { CustomTableComponent } from "../../shared/components/custom-table/infrastructure/custom-table.component";
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CustomTable } from '@app/shared/components/custom-table/domain/custom-table';
+import { Invoice } from './invoice.model';
 
 @Component({
   selector: 'app-invoice',
   standalone: true,
-  imports: [ SharedModule, CommonModule],
+  imports: [SharedModule, CommonModule, CustomTableComponent],
   templateUrl: './invoice.component.html',
   styleUrl: './invoice.component.scss'
 })
 export class InvoiceComponent {
   list: List;
+  displayedColumns: string[] = ['number', 'date', 'total'];
+  tableSource: CustomTable<Invoice>;
   dialogRef: MatDialogRef<AddInvoiceComponent>;
+
+  private _snackBar = inject(MatSnackBar);
   constructor(
     private readonly route: ActivatedRoute,
     private readonly listService: ListService,
@@ -32,11 +40,17 @@ export class InvoiceComponent {
         } else {
           this.listService.getUserLists(params.listId);
         }
+        this.generateDatasource(list?.invoices);
       })
     });
 
   }
-
+  generateDatasource(invoices) {
+    if (invoices && invoices.length > 0) {
+      invoices.sort((a, b) => (a.date < b.date ? 1 : -1));
+      this.tableSource = new CustomTable(invoices);
+    }
+  }
   onInvoiceClick (invoice) {
      const dialogRef = this.dialog.open(InvoiceDetailComponent, {
       autoFocus: false,
@@ -52,5 +66,22 @@ export class InvoiceComponent {
     this.dialogRef.afterClosed().subscribe( data => {
       //console.log('Dialog closed: ', data);
     })
- }
+  }
+
+
+  tableAction(action) {
+    console.log('Action: ', action);
+    switch (action.name) {
+      case 'onInvoiceClick': {
+        this.onInvoiceClick(action.data);
+        break;
+      }
+      default:
+        this.openSnackBar('No se ha podido realizar la acción', 'cerrar');
+        break;
+    }
+  }
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
+  }
 }

@@ -1,4 +1,4 @@
-FROM node:20-alpine as angular
+FROM node:20-alpine AS angular
 WORKDIR /ng-app
 COPY package*.json .
 RUN npm ci

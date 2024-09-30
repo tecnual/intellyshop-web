@@ -1,12 +1,4 @@
-@for (invoice of list?.invoices; track invoice) {
-  <div class="invoices-list__element" (click)="onInvoiceClick(invoice)">
-    <div>{{ invoice.number }}</div>
-    <div>{{ invoice.date | date: 'dd/MM/yyyy' }}</div>
-    <div>{{ invoice.total | currency: invoice.currency :'symbol':'1.2-2':'es' }} </div>
-  </div>
-} @empty {
-  <div class="invoices-list__element">No hay tickets para esta lista</div>
-}
+<app-custom-table [displayedColumns]="displayedColumns" [tableSource]="tableSource" (actionClick)="tableAction($event)"/>
 
 <div class="floating-button floating-button--bottom">
   <button mat-fab color="primary" aria-label="Add list" (click)="addInvoice()" class="mat-elevation-z6">
