@@ -132,5 +132,14 @@
   },
   "invoices": {
     "addInvoice": "Añadir factura"
+  },
+  "paginator": {
+    "itemsPerPageLabel": "Elementos por página: ",
+    "firstPageLabel": "Primera página",
+    "lastPageLabel": "Última página",
+    "nextPageLabel": "Página siguiente",
+    "previousPageLabel": "Página previa",
+    "page": "Página",
+    "of": "de"
   }
 }

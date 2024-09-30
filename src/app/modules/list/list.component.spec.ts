@@ -1,5 +1,5 @@
 import { registerLocaleData } from '@angular/common';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { LOCALE_ID } from '@angular/core';
 import localeEs from '@angular/common/locales/es';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -10,6 +10,7 @@ import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-tran
 
 import { ListComponent } from './list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 registerLocaleData(localeEs, 'es');
 
 describe('ListComponent', () => {
@@ -18,22 +19,19 @@ describe('ListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateFakeLoader
-          }
+    declarations: [ListComponent],
+    imports: [TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader
+            }
         }),
         BrowserAnimationsModule,
-        HttpClientTestingModule,
         RouterModule.forRoot([]),
         RouterTestingModule,
-        SharedModule
-      ],
-      declarations: [ ListComponent ],
-      providers: [{ provide: LOCALE_ID, useValue: 'es' }]
-    })
+        SharedModule],
+    providers: [{ provide: LOCALE_ID, useValue: 'es' }, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   });
 

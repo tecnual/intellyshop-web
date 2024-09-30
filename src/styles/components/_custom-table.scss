@@ -1,0 +1,11 @@
+.custom-table {
+  & .mat-mdc-cell {
+    border: none;
+  }
+  & .mat-mdc-row:nth-child(even){
+    background-color: $grey-dark-1;
+  }
+  & .mat-mdc-row:nth-child(odd){
+    background-color: $grey-dark-2;
+  }
+}

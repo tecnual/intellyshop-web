@@ -1,10 +1,11 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from '@app/shared/shared.module';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { FinanceComponent } from './finance.component';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('FinanceComponent', () => {
   let component: FinanceComponent;
@@ -12,19 +13,17 @@ describe('FinanceComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateFakeLoader
-          }
+    declarations: [FinanceComponent],
+    imports: [TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader
+            }
         }),
-        HttpClientTestingModule,
         SharedModule,
-        BrowserAnimationsModule
-      ],
-      declarations: [ FinanceComponent ]
-    })
+        BrowserAnimationsModule],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   });
 
