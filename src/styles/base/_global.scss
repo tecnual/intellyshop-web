@@ -62,14 +62,29 @@
   & svg {
     fill: green;
   }
-
 }
-/* Note: If you're using an SVG icon, you should make the class target the `<svg>` element */
 
-.u-color-yellow {
-  color: yellow;
-  & svg {
-    fill: yellow;
-  }
-}
 /* Note: If you're using an SVG icon, you should make the class target the `<svg>` element */
+:host zxing-scanner::ng-deep {
+  max-height: 80vh;
+  width: 100vw;
+  object-fit: contain;
+}
+
+.scanner {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+zxing-scanner {
+  max-width: 90%;
+}
+
+.language-icon {
+  display: flex;
+  align-items: center;
+  width: 20px;
+  height: 12px;
+  margin: 1rem;
+}

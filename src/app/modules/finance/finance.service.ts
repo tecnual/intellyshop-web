@@ -86,4 +86,20 @@ export class FinanceService {
       this.dataSubject.value;
     this.filteredDataSubject.next(filteredData);
   }
+
+  getFireflyAccounts() {
+    return this.http.get<any>(`${environment.apiUrl}/finance/firefly/accounts`);
+  }
+
+  getFireflyCategories() {
+    return this.http.get<any>(`${environment.apiUrl}/finance/firefly/categories`);
+  }
+
+  getFireflyBudgets() {
+    return this.http.get<any>(`${environment.apiUrl}/finance/firefly/budgets`);
+  }
+
+  getFireflyTags() {
+    return this.http.get<any>(`${environment.apiUrl}/finance/firefly/tags`);
+  }
 }

@@ -1,0 +1,46 @@
+<div class="m-1">
+  <form [formGroup]="userForm()" (submit)="onSubmit()">
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label>{{ 'account.profile.name' | translate }}</mat-label>
+      <input matInput formControlName="name" />
+      <mat-icon matSuffix>badge</mat-icon>
+    </mat-form-field>
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label>{{ 'global.form.field.username' | translate }}</mat-label>
+      <input matInput formControlName="username" />
+      <mat-icon matSuffix>person</mat-icon>
+    </mat-form-field>
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label>{{ 'global.form.field.email' | translate }}</mat-label>
+      <input matInput formControlName="email" type="email" />
+      <mat-icon matSuffix>email</mat-icon>
+      <mat-error>{{ 'account.error.email' | translate }}</mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label>{{ 'lang.language' | translate }}</mat-label>
+      <mat-select formControlName="language" value="" #language (selectionChange)="changeLanguage($event.value)">
+        <mat-select-trigger>
+          <span class="fi {{ language.value.icon }}"> </span>&nbsp;
+          <span>{{ 'lang.' + language.value.name | translate }}</span>
+        </mat-select-trigger>
+        @for (lang of languages; track $index) {
+        <mat-option [value]="lang" class="f-row">
+          <span class="fi {{ lang.icon }}"> </span>&nbsp;
+          <span>{{ 'lang.' + lang.name | translate }}</span>
+        </mat-option>
+        }
+      </mat-select>
+      <mat-icon matSuffix>language</mat-icon>
+    </mat-form-field>
+    <div class="form-actions">
+      <button mat-button type="button" (click)="initForm()">
+        <mat-icon iconPositionStart>cleaning_services</mat-icon>
+        {{ 'global.actions.clean' | translate }}
+      </button>
+      <button mat-button type="submit">
+        {{ 'global.actions.save' | translate }}
+        <mat-icon iconPositionStart>send</mat-icon>
+      </button>
+    </div>
+  </form>
+</div>

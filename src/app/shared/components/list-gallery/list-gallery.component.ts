@@ -65,7 +65,7 @@ export class ListGalleryComponent {
     }
 
     async save() {
-      await this.listService.addFileToList(this.data.listId ,this.fileToUpload).subscribe({
+      await this.listService.addFileToList(this.data.listId ,this.fileToUpload, {}).subscribe({
         next: (res) => {
           this.data.files = res.data.files;
           this.listService.getUserLists(this.data.listId);

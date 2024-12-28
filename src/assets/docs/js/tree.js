@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var handler = new Tautologistics.NodeHtmlParser.HtmlBuilder(function(error, dom) {
         if (error) {
-            console.log('handler ko');
+            console.error('handler ko');
         }
     }),
         parser = new Tautologistics.NodeHtmlParser.Parser(handler),
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         },
-        
+
         loadTree = function () {
             setTimeout(function() {
                 container.style.height = document.getElementsByClassName('content')[0].offsetHeight - 140 + 'px';

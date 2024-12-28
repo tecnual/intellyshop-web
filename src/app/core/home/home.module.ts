@@ -5,7 +5,6 @@ import { NavigationBarComponent } from '@app/core/home/navigation-bar/navigation
 import { SidenavComponent } from '@app/core/home/sidenav/sidenav.component';
 import { HomeComponent } from '@app/core/home/home.component';
 import { HomeRoutingModule } from './home-routing.module';
-import { SettingsComponent } from '../auth/settings/settings.component';
 
 
 const components = [

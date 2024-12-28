@@ -191,7 +191,7 @@ export class ListService {
    * @param files
    * @returns
    */
-  public addFileToList(listId: string, file: ListFile): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/list/${listId}/file`, file);
+  public addFileToList(listId: string, file: ListFile, firefly: any): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/list/${listId}/file`, { file, firefly });
   }
 }

@@ -52,7 +52,6 @@ export class NavigationBarComponent implements OnInit {
   }
 
   public openSettings() {
-    console.log('Go Settings');
     this.router.navigate(['/account/settings']);
   }
 }

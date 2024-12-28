@@ -14,9 +14,31 @@
       "user": "User",
       "password": "Password"
     },
+    "profile": {
+      "tab": "Profile",
+      "title": "Profile",
+      "username": "Username",
+      "name": "Name",
+      "email": "Email",
+      "password": "Password",
+      "repeatPassword": "Repeat password",
+      "save": "Save",
+      "delete": "Delete account",
+      "deleteMessage": "Are you sure you want to delete your account?",
+      "deleteConfirm": "Yes, delete account",
+      "deleteCancel": "Cancel"
+    },
+    "firefly": {
+      "tab": "Firefly",
+      "token": "Token"
+    },
     "confirmedMessage": "Thank you for registering with ShopTonic! Your account has been successfully activated.",
     "NotConfirmedMessage": "Awww! Your account could not be activated",
-    "unauthorized": "Username and/or password specified is incorrect."
+    "unauthorized": "Username and/or password specified is incorrect.",
+    "error": {
+      "email": "Please enter a valid email address"
+    }
+
   },
   "sidenav": {
     "menu": {
@@ -44,7 +66,8 @@
       "yes": "Yes",
       "no": "No",
       "selectFile": "Select file...",
-      "send": "Send"
+      "send": "Send",
+      "clean": "Clean"
     },
     "form": {
       "field": {

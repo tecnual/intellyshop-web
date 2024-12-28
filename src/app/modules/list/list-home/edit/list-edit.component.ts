@@ -78,7 +78,7 @@ export class ListEditComponent implements OnInit {
   }
 
   add(event: MatChipInputEvent): void {
-    const input = event.input;
+    const input = event.chipInput.inputElement;
     const value = event.value;
 
     // Add tag
@@ -115,7 +115,6 @@ export class ListEditComponent implements OnInit {
         const reader = new FileReader();
 
         reader.onload = (e: any) => {
-          //console.log(e.target.result);
           this.preview = e.target.result;
           this.form.patchValue({
             fileSource: e.target.result

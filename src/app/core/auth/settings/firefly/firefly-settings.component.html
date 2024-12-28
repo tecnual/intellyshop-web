@@ -1,0 +1,107 @@
+<div class="m-1">
+  <form [formGroup]="fireflyForm" (submit)="onSubmit()">
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label>{{ 'account.firefly.token' | translate }}</mat-label>
+      <textarea matInput formControlName="token" rows="5"></textarea>
+    </mat-form-field>
+    @if(user.firefly) {
+     <mat-form-field class="form-field" appearance="outline">
+      <mat-label>Cuenta origen por defecto</mat-label>
+      <input #input
+             type="text"
+             matInput
+             formControlName="defaultSourceAccount"
+             [matAutocomplete]="auto"
+             #defaultSourceAccount
+             (input)="filterSourceOptions(defaultSourceAccount.value)"
+             (focus)="filterSourceOptions(defaultSourceAccount.value)">
+             @if (defaultSourceAccount.value) {
+              <button matSuffix mat-icon-button aria-label="Clear" (click)="defaultSourceAccount.value=''">
+                <mat-icon>close</mat-icon>
+              </button>
+            }
+      <mat-autocomplete requireSelection #auto="matAutocomplete" [displayWith]="displayFn">
+        @for (option of filteredSourceOptions; track option) {
+          <mat-option [value]="option">{{option.nameWithBalance}}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label>Cuenta destino por defecto</mat-label>
+      <input #input
+             type="text"
+             matInput
+             formControlName="defaultDestinationAccount"
+             [matAutocomplete]="destinationAutocomplete"
+             #defaultDestinationAccount
+             (input)="filterDestinationOptions(defaultDestinationAccount.value)"
+             (focus)="filterDestinationOptions(defaultDestinationAccount.value)">
+             @if (defaultDestinationAccount.value) {
+              <button matSuffix mat-icon-button aria-label="Clear" (click)="defaultDestinationAccount.value=''">
+                <mat-icon>close</mat-icon>
+              </button>
+            }
+      <mat-autocomplete requireSelection #destinationAutocomplete="matAutocomplete" [displayWith]="displayFn">
+        @for (option of filteredDestinationOptions; track option) {
+          <mat-option [value]="option">{{option.nameWithBalance}}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label>Categoría por defecto</mat-label>
+      <input #input
+             type="text"
+             matInput
+             formControlName="defaultCategory"
+             [matAutocomplete]="categoryAutocomplete"
+             #defaultCategory
+             (input)="filterCategoryOptions(defaultCategory.value)"
+             (focus)="filterCategoryOptions(defaultCategory.value)">
+             @if (defaultCategory.value) {
+              <button matSuffix mat-icon-button aria-label="Clear" (click)="defaultCategory.value=''">
+                <mat-icon>close</mat-icon>
+              </button>
+            }
+      <mat-autocomplete requireSelection #categoryAutocomplete="matAutocomplete" [displayWith]="displayFn">
+        @for (option of filteredCategoryOptions; track option) {
+          <mat-option [value]="option">{{ option.name }}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label>Presupuesto por defecto</mat-label>
+      <input #input
+             type="text"
+             matInput
+             formControlName="defaultBudget"
+             [matAutocomplete]="budgetAutocomplete"
+             #defaultBudget
+             (input)="filterBudgetsOptions(defaultBudget.value)"
+             (focus)="filterBudgetsOptions(defaultBudget.value)">
+             @if (defaultBudget.value) {
+              <button matSuffix mat-icon-button aria-label="Clear" (click)="defaultBudget.value=''">
+                <mat-icon>close</mat-icon>
+              </button>
+            }
+      <mat-autocomplete requireSelection #budgetAutocomplete="matAutocomplete" [displayWith]="displayFn">
+        @for (option of filteredBudgetsOptions; track option) {
+          <mat-option [value]="option">{{ option.name }}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+  }
+    <div class="form-actions">
+      <button mat-button type="button" (click)="clean()">
+        <mat-icon iconPositionStart>cleaning_services</mat-icon>
+        {{ 'global.actions.clean' | translate }}
+      </button>
+      <button mat-button type="submit">
+        {{ 'global.actions.save' | translate }}
+        <mat-icon iconPositionStart>send</mat-icon>
+      </button>
+    </div>
+  </form>
+</div>

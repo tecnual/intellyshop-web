@@ -1,0 +1,17 @@
+.m-1 {
+  margin: 1rem;
+}
+
+.f-row {
+  display: flex !important;
+  flex-direction: row;
+}
+
+/* Note: If you're using an SVG icon, you should make the class target the `<svg>` element */
+.u-color-yellow {
+  color: yellow;
+  & svg {
+    fill: yellow;
+  }
+}
+

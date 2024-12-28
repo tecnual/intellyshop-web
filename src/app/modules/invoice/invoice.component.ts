@@ -64,13 +64,12 @@ export class InvoiceComponent {
     });
 
     this.dialogRef.afterClosed().subscribe( data => {
-      //console.log('Dialog closed: ', data);
+      // console.log('Dialog closed: ', data);
     })
   }
 
 
   tableAction(action) {
-    console.log('Action: ', action);
     switch (action.name) {
       case 'onInvoiceClick': {
         this.onInvoiceClick(action.data);

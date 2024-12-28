@@ -18,7 +18,6 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private accountService: AccountService,
-    private snackBar: MatSnackBar,
     private router: Router,
     public dialog: MatDialog
   ) { }
@@ -44,7 +43,6 @@ export class RegisterComponent implements OnInit {
         data: {user}
       });
       dialogRef.afterClosed().subscribe(data => {
-        console.log('Cerrar dialogo bienvenida')
         this.router.navigate(['/']);
       });
     });
