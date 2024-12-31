@@ -4,6 +4,7 @@ import { MatPaginator, MatPaginatorIntl, MatPaginatorModule } from '@angular/mat
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MyCustomPaginatorIntl } from './paginator.es.intl';
+import { CustomTable } from '../domain/custom-table';
 
 @Component({
   selector: 'app-custom-table',
@@ -12,10 +13,11 @@ import { MyCustomPaginatorIntl } from './paginator.es.intl';
   providers: [{ provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl }],
   templateUrl: './custom-table.component.html'
 })
-export class CustomTableComponent implements AfterViewInit{ // TODO: Hacer genérico
-  displayedColumns = input<string[]>();
-  tableSource = input<any>();
-  dataSource = new MatTableDataSource<any>();
+export class CustomTableComponent<T> implements AfterViewInit{
+
+  displayedColumns: string[];
+  tableSource = input<CustomTable<T>>();
+  dataSource = new MatTableDataSource<T>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -26,6 +28,7 @@ export class CustomTableComponent implements AfterViewInit{ // TODO: Hacer gené
       this.dataSource.data = this.tableSource()?.data;
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+      this.displayedColumns = this.tableSource()?.columns.map(column => column.name);
     });
   }
 
@@ -34,6 +37,7 @@ export class CustomTableComponent implements AfterViewInit{ // TODO: Hacer gené
  */
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
 /**

@@ -9,7 +9,7 @@ import { SharedModule } from '@app/shared/shared.module';
 import { AddInvoiceComponent } from './add-invoice/add-invoice.component';
 import { CustomTableComponent } from "../../shared/components/custom-table/infrastructure/custom-table.component";
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CustomTable } from '@app/shared/components/custom-table/domain/custom-table';
+import { CustomTable, CustomTableColumn, CustomTableColumnType } from '@app/shared/components/custom-table/domain/custom-table';
 import { Invoice } from './invoice.model';
 
 @Component({
@@ -46,13 +46,31 @@ export class InvoiceComponent {
 
   }
   generateDatasource(invoices) {
+    const columns: CustomTableColumn[] = [
+      {
+        name: 'number',
+        label: 'No.',
+        type: CustomTableColumnType.NUMBER
+      },
+      {
+        name: 'date',
+        label: 'Fecha',
+        type: CustomTableColumnType.DATE
+      },
+      {
+        name: 'total',
+        label: 'Total',
+        type: CustomTableColumnType.CURRENCY
+      }
+    ];
     if (invoices && invoices.length > 0) {
       invoices.sort((a, b) => (a.date < b.date ? 1 : -1));
       this.tableSource = new CustomTable(invoices);
+      this.tableSource.columns = columns;
     }
   }
   onInvoiceClick (invoice) {
-     const dialogRef = this.dialog.open(InvoiceDetailComponent, {
+    this.dialog.open(InvoiceDetailComponent, {
       autoFocus: false,
       data: {invoice}
     })

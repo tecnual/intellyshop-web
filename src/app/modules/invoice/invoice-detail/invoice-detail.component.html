@@ -13,7 +13,7 @@
   <div class="dialog-content">
     <table class="invoice-table">
       <tr>
-        <th>U</th>
+        <th class="">U</th>
         <th class="invoice-line__description">Descripción</th>
         <th>€/u</th>
         <th>€</th>
@@ -21,7 +21,7 @@
       </tr>
       @for (line of data.invoice.lines; track $index) {
       <tr>
-        <td>
+        <td class="invoice-line__units">
           {{ line.quantity | number : '1.0-2' }}
           {{ line.unitType === 'u' ? '' : line.unitType }}
         </td>
@@ -29,6 +29,15 @@
           @if (line.item_id) {
           <div class="u-color-yellow" (click)="openItemDetail(line)">
             {{ line.description }}
+            @if(line.increment < 0) {
+              <mat-icon matTooltip="{{ line.increment | number : '1.0-2' }}" class="u-size-s u-color-red va-bottom">trending_up</mat-icon>
+            }
+            @if(line.increment > 0) {
+              <mat-icon matTooltip="{{ line.increment | number : '1.0-2' }}" class="u-size-s u-color-green va-bottom">trending_down</mat-icon>
+            }
+            @if(line.increment === 0) {
+              <mat-icon class="u-size-s va-bottom">trending_flat</mat-icon>
+            }
           </div>
           } @else {
           <div>{{ line.description }}</div>

@@ -1,6 +1,9 @@
 <div class="dialog">
   <header class="dialog-header">
+    <div>
     <h2 class="dialog-header__title">{{ item.name }} <span>{{ item.openFoodFactsProduct?.brands }}</span></h2>
+    <h3 class="dialog-header__description">{{ item.price | currency : 'EUR' : 'symbol' : '1.2-2' : 'es' }}</h3>
+    </div>
     <button
       mat-icon-button
       aria-label="close dialog"
@@ -10,18 +13,17 @@
       <mat-icon>close</mat-icon>
     </button>
   </header>
-  <div class="item-detail">
-    <div class="item-detail-prices">
-      <h3>Precios</h3>
-      @for(elem of prices; track elem) {
-      <div class="item-detail-prices__table">
-        <div> {{ elem.price | currency:'EUR':'symbol':'1.2-2':'es'}}</div>
-        <div> {{ elem.date | date: 'dd/MM/yyyy' }}</div>
-        <div> {{ elem.source }}</div>
-
-      </div>
+  <mat-tab-group>
+    <mat-tab label="Gráfico">
+      @if (chartData.length > 0) {
+      <app-chart type="line" [data]="chartData"></app-chart>
       }
-    </div>
+    </mat-tab>
+    <mat-tab label="Tabla">
+      <app-custom-table [tableSource]="tableSource" (actionClick)="tableAction($event)" />
+    </mat-tab>
+  </mat-tab-group>
+  <div class="item-detail">
     @if (item?.openFoodFactsProduct?.image_url) {
       <img [src]="item?.openFoodFactsProduct?.image_url" class="item__image--thumbnail item">
     } @else {

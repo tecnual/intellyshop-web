@@ -12,58 +12,6 @@
   }
 }
 
-.margin-bottom--m {
-  margin-bottom: 1rem;
-}
-
-.u_nolink {
-  all: unset;
-}
-
-.u-bottom-line {
-  border-bottom: 1px solid var(--mat-toolbar-container-background);
-}
-
-.u_col {
-  flex: 1;
-  &--xs{
-    width: 1rem;
-  }
-  &--s{
-    width: 2rem;
-  }
-  &--m{
-    width: 3rem;
-  }
-  &--l{
-    width: 4rem;
-  }
-  &--xl{
-    width: 5rem;
-  }
-  &--xxl{
-    width: 6rem;
-  }
-
-}
-
-.u-size {
-  &-xs {
-    transform: scale(.5);
-  }
-  &-s {
-    transform: scale(.7);
-  }
-
-}
-
-.u-color-green {
-  color: green;
-  & svg {
-    fill: green;
-  }
-}
-
 /* Note: If you're using an SVG icon, you should make the class target the `<svg>` element */
 :host zxing-scanner::ng-deep {
   max-height: 80vh;

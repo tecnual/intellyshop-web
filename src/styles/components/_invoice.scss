@@ -28,8 +28,12 @@
   }
 
   &-line {
+    &__units{
+      //width: 10%;
+      max-width: 10%;
+    }
     &__description {
-      max-width: 25%;
+      max-width: 35%;
       width: 100%;
       text-align: left !important;
     }
