@@ -1,6 +1,34 @@
 .form {
+  &-title {
+    display: flex;
+    align-items: baseline;
+    color: $white;
+
+    font-size: x-large;
+    font-weight: 500;
+  }
+  &-fieldset {
+    width: 100%;
+    &--inline {
+      display: inline-flex;
+      flex-direction: row;
+      gap: 1rem;
+    }
+  }
   &-field {
-    width: 100%
+    width: 100%;
+
+    &--xs {
+      width: 4.5rem;
+    }
+    &--s {
+      width: 5.5rem;
+    }
+
+    &--m {
+      width: 8rem;
+    }
+
   }
 
   &-actions {

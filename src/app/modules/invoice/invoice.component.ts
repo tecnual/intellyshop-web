@@ -25,7 +25,7 @@ export class InvoiceComponent {
   tableSource: CustomTable<Invoice>;
   dialogRef: MatDialogRef<AddInvoiceComponent>;
 
-  private _snackBar = inject(MatSnackBar);
+  private snackBar = inject(MatSnackBar);
   constructor(
     private readonly route: ActivatedRoute,
     private readonly listService: ListService,
@@ -99,6 +99,6 @@ export class InvoiceComponent {
     }
   }
   openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action);
+    this.snackBar.open(message, action);
   }
 }

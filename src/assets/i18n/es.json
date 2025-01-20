@@ -153,7 +153,8 @@
     }
   },
   "invoices": {
-    "addInvoice": "Añadir factura"
+    "addInvoice": "Añadir factura",
+    "editLine": "Editar Línea"
   },
   "paginator": {
     "itemsPerPageLabel": "Elementos por página: ",

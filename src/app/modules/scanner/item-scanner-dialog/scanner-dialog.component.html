@@ -1,12 +1,19 @@
 <div class="scanner-shell" [hidden]="!hasDevices">
   <span *ngIf="error">Error: {{ error }}</span>
   <header class="scanner__toolbar">
-    <button mat-icon-button (click)="toggleDevice()" cdkFocusInitial><mat-icon>cameraswitch</mat-icon></button>
-    <button mat-icon-button *ngIf="torchAvailable$ | async" (click)="toggleTorch()"><mat-icon [style]="torchEnabled ? 'color: white' : 'color: grey'">highlight</mat-icon></button>
-    <mat-slide-toggle [(ngModel)]="scannerEnabled" ></mat-slide-toggle>
+    <button mat-icon-button (click)="toggleDevice()" cdkFocusInitial>
+      <mat-icon>cameraswitch</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      *ngIf="torchAvailable$ | async"
+      (click)="toggleTorch()">
+      <mat-icon [style]="torchEnabled ? 'color: white' : 'color: grey'">highlight</mat-icon>
+    </button>
+    <mat-slide-toggle [(ngModel)]="scannerEnabled"></mat-slide-toggle>
   </header>
   <div class="scanner" *ngIf="scannerEnabled">
-    <zxing-scanner 
+    <zxing-scanner
       [enable]="scannerEnabled"
       [(device)]="currentDevice"
       (scanSuccess)="onCodeResult($event)"
@@ -16,45 +23,55 @@
       (camerasFound)="onCamerasFound($event)"
       (torchCompatible)="onTorchCompatible($event)"
       [torch]="torchEnabled"
-      (scanError)="onScanError($event)">
+      (scanError)="onScanError($event)"
+    >
     </zxing-scanner>
   </div>
 </div>
 
 <ng-container *ngIf="hasPermission === undefined">
-
   <h2>Waiting for permissions.</h2>
 
   <blockquote>
     If your device does not has cameras, no permissions will be asked.
   </blockquote>
-
 </ng-container>
 
 <ng-container *ngIf="hasPermission === false">
-
-  <h2>You denied the camera permission, we can't scan anything without it. 😪</h2>
-
+  <h2>
+    You denied the camera permission, we can't scan anything without it. 😪
+  </h2>
 </ng-container>
 
 <ng-container *ngIf="hasDevices === undefined">
-
   <h2>Couldn't check for devices.</h2>
 
-  <blockquote>
-    This may be caused by some security error.
-  </blockquote>
-
+  <blockquote>This may be caused by some security error.</blockquote>
 </ng-container>
 
 <ng-container *ngIf="hasDevices === false">
-
   <h2>No devices were found.</h2>
 
   <blockquote>
     I believe your device has no media devices attached to.
   </blockquote>
-
 </ng-container>
+<div class="m-1">
+  <form>
+    <fieldset class="form-fieldset--inline borderless">
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Código de barras</mat-label>
+        <input
+          type="text"
+          matInput
+          id="barcode"
+          #barcode
+          (input)="setManualBarcode(barcode.value)"
+        />
+      </mat-form-field>
+      <button mat-icon-button (click)="onCodeResult(barcode.value)"><mat-icon>arrow_forward</mat-icon></button>
+    </fieldset>
+  </form>
+</div>
 
 <button mat-button (click)="close()" cdkFocusInitial>Close</button>

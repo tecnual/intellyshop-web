@@ -1,8 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { ENTER, COMMA } from '@angular/cdk/keycodes';
-import { Component, computed, inject, Inject, model, signal } from '@angular/core';
+import { Component, inject, Inject, signal } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AccountService } from '@app/core/auth/account.service';

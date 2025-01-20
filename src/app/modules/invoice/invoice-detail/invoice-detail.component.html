@@ -30,13 +30,19 @@
           <div class="u-color-yellow" (click)="openItemDetail(line)">
             {{ line.description }}
             @if(line.increment < 0) {
-              <mat-icon matTooltip="{{ line.increment | number : '1.0-2' }}" class="u-size-s u-color-red va-bottom">trending_up</mat-icon>
-            }
-            @if(line.increment > 0) {
-              <mat-icon matTooltip="{{ line.increment | number : '1.0-2' }}" class="u-size-s u-color-green va-bottom">trending_down</mat-icon>
-            }
-            @if(line.increment === 0) {
-              <mat-icon class="u-size-s va-bottom">trending_flat</mat-icon>
+            <mat-icon
+              matTooltip="{{ line.increment | number : '1.0-2' }}"
+              class="u-size-s u-color-red va-bottom"
+              >trending_up</mat-icon
+            >
+            } @if(line.increment > 0) {
+            <mat-icon
+              matTooltip="{{ line.increment | number : '1.0-2' }}"
+              class="u-size-s u-color-green va-bottom"
+              >trending_down</mat-icon
+            >
+            } @if(line.increment === 0) {
+            <mat-icon class="u-size-s va-bottom">trending_flat</mat-icon>
             }
           </div>
           } @else {
@@ -58,9 +64,16 @@
         <td>
           @if (line.barcode) {
           <div class="invoice-line__actions--center">
-            <mat-icon class="u-size-s u-color-green"
-              >check_circle_outline</mat-icon
-            >
+            <button mat-button [matMenuTriggerFor]="menu">
+              <mat-icon class="u-color-green">
+                check_circle_outline
+              </mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="openEditLine(line)">
+                <mat-icon>edit</mat-icon>{{ 'global.actions.edit' | translate }}
+              </button>
+            </mat-menu>
           </div>
           } @else {
           <button
@@ -82,14 +95,14 @@
   </div>
   <footer class="dialog-footer">
     <div class="invoice-footer">
-    <div>{{ data.invoice.lines.length }} Productos</div>
-    <div>
-      Total:
-      {{
-        data.invoice.total
-          | currency : data.invoice.currency : 'symbol' : '1.2-2' : 'es'
-      }}
+      <div>{{ data.invoice.lines.length }} Productos</div>
+      <div>
+        Total:
+        {{
+          data.invoice.total
+            | currency : data.invoice.currency : 'symbol' : '1.2-2' : 'es'
+        }}
+      </div>
     </div>
-  </div>
   </footer>
 </div>

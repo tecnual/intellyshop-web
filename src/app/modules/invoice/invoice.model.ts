@@ -22,7 +22,10 @@ export class Invoice {
 export class InvoiceLine {
   _id: string;
   barcode: string;
+  noBarcode: boolean;
   quantity: number;
+  productQuantity: number;
+  productQuantityUnit: UnitType;
   description: string;
   price: number;
   unitType: UnitType;

@@ -1,0 +1,93 @@
+<div class="dialog">
+  <header class="dialog-header">
+    <h2>{{ 'invoices.editLine' | translate }}</h2>
+    <button
+      mat-icon-button
+      aria-label="close dialog"
+      mat-dialog-close
+      onclick="this.blur()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </header>
+  <div>
+    <form [formGroup]="lineForm">
+      <div class="form-title m-1">
+        <p>{{ data.line.description }}</p>
+        <button
+          mat-icon-button
+          aria-label="Open Item"
+          (click)="openItemDetail()"
+        >
+          <mat-icon>info_outline</mat-icon>
+        </button>
+      </div>
+      <fieldset class="form-fieldset form-fieldset--inline borderless">
+      <mat-form-field appearance="outline">
+        <mat-label>Unidad</mat-label>
+        <mat-select formControlName="units">
+          @for (element of units; track element) {
+          <mat-option [value]="element">{{ element }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      </fieldset>
+      <fieldset class="form-fieldset form-fieldset--inline borderless">
+        <mat-form-field class="form-field form-field--s" appearance="outline">
+          <mat-label>Cantidad</mat-label>
+          <input
+            type="number"
+            matInput
+            formControlName="quantity"
+            id="quantity"
+            #quantity
+            (input)="onChange(quantity)"
+          />
+        </mat-form-field>
+        <mat-form-field class="form-field form-field--xs" appearance="outline">
+          <mat-label>Precio</mat-label>
+          <input
+            type="number"
+            matInput
+            formControlName="price"
+            id="price"
+            #price
+            (input)="onChange(price)"
+          />
+        </mat-form-field>
+        <mat-form-field class="form-field form-field--xs" appearance="outline">
+          <mat-label>Total</mat-label>
+          <input
+            type="number"
+            matInput
+            formControlName="total"
+            #total
+            readonly
+          />
+        </mat-form-field>
+      </fieldset>
+    </form>
+  </div>
+  <footer class="dialog-footer">
+    <div class="dialog-actions">
+      <button
+        mat-button
+        extended
+        aria-label="close dialog"
+        mat-dialog-close
+        onclick="this.blur()"
+      >
+        <mat-icon>close</mat-icon>{{ 'global.actions.close' | translate }}
+      </button>
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="save()"
+        [disabled]="!lineForm.valid"
+        cdkFocusInitial
+      >
+        <mat-icon>save</mat-icon>{{ 'global.actions.save' | translate }}
+      </button>
+    </div>
+  </footer>
+</div>

@@ -10,6 +10,8 @@ export class Item {
   openFoodFactsProduct?: any;
   prices?: Price[];
   lastPriceUpdateDate?: Date;
+  productQuantity?: number;
+  productQuantityUnit?: number;
 
   constructor(name: string, altNames: string[], barcode: string, description?: string, price?: number) {
     this.name = name || undefined;

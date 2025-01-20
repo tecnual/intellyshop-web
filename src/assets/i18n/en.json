@@ -38,7 +38,6 @@
     "error": {
       "email": "Please enter a valid email address"
     }
-
   },
   "sidenav": {
     "menu": {
@@ -154,7 +153,8 @@
     }
   },
   "invoices": {
-    "addInvoice": "Add Invoice"
+    "addInvoice": "Add Invoice",
+    "editLine": "Edit Line"
   },
   "paginator": {
     "itemsPerPageLabel": "Items per page:",

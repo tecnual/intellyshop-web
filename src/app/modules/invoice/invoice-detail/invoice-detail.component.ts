@@ -9,9 +9,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ItemService } from '@app/modules/item/item.service';
 import { ScannerDialogComponent } from '@app/modules/scanner/item-scanner-dialog/scanner-dialog.component';
 import { SharedModule } from '@app/shared/shared.module';
-import { InvoiceLine } from '../invoice.model';
+import { Invoice, InvoiceLine } from '../invoice.model';
 import { OpenFoodFactsService } from '@app/modules/open-food-facts/open-food-facts.service';
 import { ItemComponent } from '@app/modules/item/item.component';
+import { EditLineComponent } from './edit-line.component';
 
 @Component({
   selector: 'app-invoice-detail',
@@ -33,7 +34,6 @@ export class InvoiceDetailComponent {
    * Open scanner embebed app
    */
   public openScanner(line: InvoiceLine) {
-    const item = {};
     const dialogRef = this.dialog.open(ScannerDialogComponent);
 
     dialogRef.afterClosed().subscribe((barcode) => {
@@ -46,6 +46,17 @@ export class InvoiceDetailComponent {
     });
   }
 
+    /**
+   * Open scanner embebed app
+   */
+    public openEditLine(line: InvoiceLine) {
+      this.dialog.open(EditLineComponent, {
+        data: {
+          line,
+          invoiceId: this.data.invoice._id
+        }
+      });
+    }
   /**
    * Process barcode data on list
    * @param barcode

@@ -7,9 +7,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-item-scanner-dialog',
-  templateUrl: './scanner-dialog.component.html',
-  styles: [
-  ]
+  templateUrl: './scanner-dialog.component.html'
 })
 export class ScannerDialogComponent {
   @ViewChild('scanner', { static: false })
@@ -106,5 +104,9 @@ export class ScannerDialogComponent {
   public close() {
     this.scannerEnabled = false;
     this.dialogRef.close();
+  }
+
+  setManualBarcode(barcode: string) {
+    console.log('Barcode: ', barcode);
   }
 }
